@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}Inicio - Métodos Numéricos{% endblock %}
+
+{% block titulo %}
+<h1>Bienvenido al sistema de métodos numéricos</h1>
+<p>Selecciona una pestaña para trabajar con regresión, interpolación o extrapolación.</p>
+{% endblock %}
+
+{% block body %}
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="tabMenu" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="regLineal-tab" data-bs-toggle="tab" data-bs-target="#regLineal" type="button" role="tab">Regresión Lineal</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="regCuadratica-tab" data-bs-toggle="tab" data-bs-target="#regCuadratica" type="button" role="tab">Regresión Cuadrática</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="interLineal-tab" data-bs-toggle="tab" data-bs-target="#interLineal" type="button" role="tab">Interpolación Lineal</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="interLagrange-tab" data-bs-toggle="tab" data-bs-target="#interLagrange" type="button" role="tab">Interpolación Lagrange</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="extraLineal-tab" data-bs-toggle="tab" data-bs-target="#extraLineal" type="button" role="tab">Extrapolación Lineal</button>
+    </li>
+     <li class="nav-item" role="presentation">
+        <button class="nav-link" id="extraNewton-tab" data-bs-toggle="tab" data-bs-target="#extraNewton" type="button" role="tab">Extrapolación Newton</button>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content mt-3">
+    <div class="tab-pane fade show active" id="regLineal" role="tabpanel" aria-labelledby="regLineal-tab">
+        <h3>Regresión Lineal</h3>
+        <p>Aquí irá el contenido de la regresión lineal.</p>
+        {# {% include 'regresionLineal.html' %} #}
+    </div>
+
+    <div class="tab-pane fade" id="regCuadratica" role="tabpanel" aria-labelledby="regCuadratica-tab">
+        <h3>Regresión Cuadrática</h3>
+        <p>Aquí irá el contenido de la regresión cuadrática.</p>
+        {# {% include 'regresionCuadratica.html' %} #}
+    </div>
+
+    <div class="tab-pane fade" id="interLineal" role="tabpanel" aria-labelledby="interLineal-tab">
+        <h3>Interpolación</h3>
+        <p>Aquí irá el contenido de interpolación lineal o de Lagrange.</p>
+        {# {% include 'interpolacion.html' %} #}
+    </div>
+
+    <div class="tab-pane fade" id="interLagrange" role="tabpanel" aria-labelledby="interLagrange-tab">
+        <h3>Extrapolación</h3>
+        <p>Aquí irá el contenido de extrapolación lineal o de Newton.</p>
+        {# {% include 'extrapolacion.html' %} #}
+    </div>
+
+    <div class="tab-pane fade" id="extraLineal" role="tabpanel" aria-labelledby="extraLineal-tab">
+        <h3>Extrapolación</h3>
+        <p>Aquí irá el contenido de extrapolación lineal o de Newton.</p>
+        {# {% include 'extrapolacion.html' %} #}
+    </div>
+
+    <div class="tab-pane fade" id="extraNewton" role="tabpanel" aria-labelledby="extraNewton-tab">
+        <h3>Extrapolación</h3>
+        <p>Aquí irá el contenido de extrapolación lineal o de Newton.</p>
+        {# {% include 'extrapolacion.html' %} #}
+    </div>
+</div>
+{% endblock %}
