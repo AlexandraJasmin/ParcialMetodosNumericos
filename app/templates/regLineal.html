@@ -4,33 +4,48 @@
 {% block title %}Regresión Lineal{% endblock %}
 
 {% block titulo %}
-<h1 class="text-primary">Regresión Lineal</h1>
+<h1 class="text-primary">📈 Regresión Lineal</h1>
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container p-4 rounded" style="background-color: #fff4f4;">
 
     {% if error %}
         <div class="alert alert-danger">{{ error }}</div>
     {% endif %}
 
     {% if resultados %}
-        <h3>Resultado:</h3>
-        <p><strong>Pendiente (m):</strong> {{ resultados.m }}</p>
-        <p><strong>Intercepto (b):</strong> {{ resultados.b }}</p>
-        <p><strong>Ecuación:</strong> y = {{ resultados.m }}x + {{ resultados.b }}</p>
+        <h3 class="mt-3">🧮 Resultado:</h3>
+        <p><strong>Pendiente (m):</strong> {{ "%.4f"|format(resultados.m) }}</p>
+        <p><strong>Intercepto (b):</strong> {{ "%.4f"|format(resultados.b) }}</p>
+        <p><strong>Ecuación:</strong> y = {{ "%.4f"|format(resultados.m) }}x + {{ "%.4f"|format(resultados.b) }}</p>
 
         <hr>
-        <h5>Datos Ingresados:</h5>
-        <ul>
-            {% for par in xy_pares %}
-                <li>X = {{ par[0] }}, Y = {{ par[1] }}</li>
-            {% endfor %}
-        </ul>
+        <h5 class="mt-4">📋 Datos Ingresados:</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover rounded">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>i</th>
+                        <th>x<sub>i</sub></th>
+                        <th>y<sub>i</sub></th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for i in range(cantidad) %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ "%.4f"|format(xy_pares[i][0]) }}</td>
+                        <td>{{ "%.4f"|format(xy_pares[i][1]) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         <a href="/regLineal" class="btn btn-secondary mt-3">Volver a empezar</a>
 
-        <!-- Grafica Plotly -->
+        <!-- Gráfica Plotly -->
         <div id="plot" class="mt-4"></div>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script>
@@ -66,3 +81,4 @@
 
 </div>
 {% endblock %}
+

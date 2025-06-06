@@ -233,7 +233,6 @@ def extra_lineal():
         except Exception as e:
             return render_template("extraLineal.html", error=f"Error: {e}")
 
-    # Paso 1: Mostrar formulario inicial
     return render_template("extraLineal.html")
 
 
