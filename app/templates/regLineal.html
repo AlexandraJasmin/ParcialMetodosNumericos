@@ -1,0 +1,60 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Regresión Lineal{% endblock %}
+
+{% block titulo %}
+<h1 class="text-primary">Regresión Lineal</h1>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if resultados %}
+        <h3>Resultado:</h3>
+        <p><strong>Pendiente (m):</strong> {{ resultados.m }}</p>
+        <p><strong>Intercepto (b):</strong> {{ resultados.b }}</p>
+        <p><strong>Ecuación:</strong> y = {{ resultados.m }}x + {{ resultados.b }}</p>
+
+        <hr>
+        <h5>Datos Ingresados:</h5>
+        <ul>
+    {% for par in xy_pares %}
+        <li>X = {{ par[0] }}, Y = {{ par[1] }}</li>
+    {% endfor %}
+</ul>
+
+        <a href="/regLineal" class="btn btn-secondary mt-3">Volver a empezar</a>
+
+    {% elif cantidad %}
+        <form method="POST">
+            <input type="hidden" name="cantidad" value="{{ cantidad }}">
+            {% for i in range(cantidad) %}
+                <div class="row mb-2">
+                    <div class="col">
+                        <input type="text" name="x{{ i }}" class="form-control" placeholder="X{{ i }}" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="y{{ i }}" class="form-control" placeholder="Y{{ i }}" required>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+
+    {% else %}
+        <form method="POST">
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">¿Cuántos pares de datos (x, y) deseas ingresar?</label>
+                <input type="number" min="2" name="cantidad" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Continuar</button>
+        </form>
+    {% endif %}
+
+</div>
+{% endblock %}
