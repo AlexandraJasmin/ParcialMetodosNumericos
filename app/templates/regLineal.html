@@ -1,5 +1,5 @@
 
-{% extends "layout.html" %}
+{% extends "layout.html" %} 
 
 {% block title %}Regresión Lineal{% endblock %}
 
@@ -23,12 +23,20 @@
         <hr>
         <h5>Datos Ingresados:</h5>
         <ul>
-    {% for par in xy_pares %}
-        <li>X = {{ par[0] }}, Y = {{ par[1] }}</li>
-    {% endfor %}
-</ul>
+            {% for par in xy_pares %}
+                <li>X = {{ par[0] }}, Y = {{ par[1] }}</li>
+            {% endfor %}
+        </ul>
 
         <a href="/regLineal" class="btn btn-secondary mt-3">Volver a empezar</a>
+
+        <!-- Grafica Plotly -->
+        <div id="plot" class="mt-4"></div>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script>
+            let graphJSON = {{ graphJSON | safe }};
+            Plotly.newPlot('plot', graphJSON.data, graphJSON.layout);
+        </script>
 
     {% elif cantidad %}
         <form method="POST">

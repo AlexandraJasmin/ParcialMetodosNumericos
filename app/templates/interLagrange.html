@@ -1,0 +1,102 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Interpolación de Lagrange{% endblock %}
+
+{% block titulo %}
+<h1 class="text-primary">Interpolación por el Polinomio de Lagrange</h1>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if polinomio %}
+        <h3>Resultado:</h3>
+        <p><strong>Polinomio:</strong> \( {{ polinomio }} \)</p>
+
+        {% if x_eval %}
+            <p><strong>Prueba en x = {{ x_eval }}:</strong> y = {{ y_eval }}</p>
+        {% endif %}
+
+        <!-- Tabla de valores ingresados -->
+        <h5 class="mt-3">Valores ingresados:</h5>
+        <table class="table table-bordered w-auto">
+            <thead class="table-dark">
+                <tr>
+                    <th>i</th>
+                    <th>x<sub>i</sub></th>
+                    <th>y<sub>i</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(cantidad) %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ x_vals[i] | round(4) }}</td>
+                    <td>{{ y_vals[i] | round(4) }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form method="POST">
+            <input type="hidden" name="cantidad" value="{{ cantidad }}">
+            {% for i in range(cantidad) %}
+                <input type="hidden" name="x{{ i }}" value="{{ x_vals[i] }}">
+                <input type="hidden" name="y{{ i }}" value="{{ y_vals[i] }}">
+            {% endfor %}
+            <div class="mb-3">
+                <label>Probar polinomio en x:</label>
+                <input type="text" name="x_eval" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-secondary">Evaluar</button>
+        </form>
+
+        <div id="plot" class="mt-4"></div>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script>
+            let graphJSON = {{ graphJSON | safe }};
+            Plotly.newPlot('plot', graphJSON.data, graphJSON.layout);
+        </script>
+
+        <hr>
+        <a href="/interLagrange" class="btn btn-primary mt-3">Volver a empezar</a>
+
+    {% elif cantidad %}
+        <form method="POST">
+            <input type="hidden" name="cantidad" value="{{ cantidad }}">
+            {% for i in range(cantidad) %}
+                <div class="row mb-2">
+                    <div class="col">
+                        <input type="text" name="x{{ i }}" class="form-control" placeholder="X{{ i }}" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="y{{ i }}" class="form-control" placeholder="Y{{ i }}" required>
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+
+    {% else %}
+        <form method="POST">
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">¿Cuántos pares de datos (x, y) deseas ingresar?</label>
+                <input type="number" min="2" name="cantidad" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Continuar</button>
+        </form>
+    {% endif %}
+</div>
+
+<!-- Renderizado de LaTeX -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+{% endblock %}
+
